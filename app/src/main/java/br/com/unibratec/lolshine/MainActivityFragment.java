@@ -1,12 +1,14 @@
 package br.com.unibratec.lolshine;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -35,10 +37,19 @@ public class MainActivityFragment extends Fragment {
 
         LoLShineTask task = new LoLShineTask();
 
-        String summonerName = "Dragonfly".toLowerCase();
+        String summonerName = "Coexista".toLowerCase();
         task.execute(summonerName);
 
         mListView = (ListView) view.findViewById(R.id.listView_matches);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(getActivity(), GameDetailActivity.class);
+                Game game = mPlayerHistory.getGames().get(i);
+                it.putExtra("game", game);
+                startActivity(it);
+            }
+        });
 
         return view;
     }

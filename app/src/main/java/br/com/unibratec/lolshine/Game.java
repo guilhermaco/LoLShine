@@ -1,8 +1,9 @@
 package br.com.unibratec.lolshine;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Game {
+public class Game implements Serializable{
     private long gameId;
     private boolean invalid;
     private String gameMode;

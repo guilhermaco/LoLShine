@@ -1,9 +1,10 @@
 package br.com.unibratec.lolshine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerHistory {
+public class PlayerHistory implements Serializable {
     private List<Game> games;
 
     public PlayerHistory(){

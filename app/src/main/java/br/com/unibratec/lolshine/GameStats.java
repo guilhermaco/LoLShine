@@ -1,6 +1,8 @@
 package br.com.unibratec.lolshine;
 
-public class GameStats {
+import java.io.Serializable;
+
+public class GameStats implements Serializable{
     private int level;
     private int goldEarned;
     private int numDeaths;

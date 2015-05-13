@@ -1,6 +1,8 @@
 package br.com.unibratec.lolshine;
 
-public class FellowPlayer {
+import java.io.Serializable;
+
+public class FellowPlayer implements Serializable{
     private long summonerId;
     private int teamId;
     private int champiomId;
