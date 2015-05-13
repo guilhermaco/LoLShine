@@ -1,16 +1,29 @@
 package br.com.unibratec.lolshine;
 
-import android.support.v4.app.Fragment;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.google.gson.Gson;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment {
+    private PlayerHistory mPlayerHistory;
+    private ListView mListView;
 
     public MainActivityFragment() {
     }
@@ -18,6 +31,61 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        LoLShineTask task = new LoLShineTask();
+
+        String summonerName = "Dragonfly".toLowerCase();
+        task.execute(summonerName);
+
+        mListView = (ListView) view.findViewById(R.id.listView_matches);
+
+        return view;
+    }
+
+    public class LoLShineTask extends AsyncTask<String, Void, List<Game>>{
+
+        @Override
+        protected List<Game> doInBackground(String... params) {
+            String url;
+            OkHttpClient client = new OkHttpClient();
+            Gson gson = new Gson();
+            Request request = null;
+
+            try {
+                url = "https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/" +
+                        params[0] +"?api_key=4508d11b-77d1-439b-8fad-48326122d306";
+                request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Response response = client.newCall(request).execute();
+                String json = response.body().string();
+                JSONObject summoner = new JSONObject(json);
+                JSONObject summonerData = summoner.getJSONObject(params[0]);
+
+                String summonerId = summonerData.getString("id");
+
+                url = "https://br.api.pvp.net/api/lol/br/v1.3/game/by-summoner/" + summonerId +
+                        "/recent?api_key=4508d11b-77d1-439b-8fad-48326122d306";
+
+                request = new Request.Builder()
+                        .url(url)
+                        .build();
+                response = client.newCall(request).execute();
+                json = response.body().string();
+
+                mPlayerHistory = gson.fromJson(json, PlayerHistory.class);
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
+
+            return mPlayerHistory.getGames();
+        }
+
+        @Override
+        protected void onPostExecute(List<Game> games) {
+            mListView.setAdapter(new GameAdapter(getActivity(), games));
+        }
     }
 }
