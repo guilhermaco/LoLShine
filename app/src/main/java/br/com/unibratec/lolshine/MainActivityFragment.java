@@ -37,7 +37,7 @@ public class MainActivityFragment extends Fragment {
 
         LoLShineTask task = new LoLShineTask();
 
-        String summonerName = "Coexista".toLowerCase();
+        String summonerName = "Dragonfly".toLowerCase();
         task.execute(summonerName);
 
         mListView = (ListView) view.findViewById(R.id.listView_matches);
@@ -61,11 +61,12 @@ public class MainActivityFragment extends Fragment {
             String url;
             OkHttpClient client = new OkHttpClient();
             Gson gson = new Gson();
-            Request request = null;
+            Request request;
 
             try {
                 url = "https://br.api.pvp.net/api/lol/br/v1.4/summoner/by-name/" +
                         params[0] +"?api_key=4508d11b-77d1-439b-8fad-48326122d306";
+
                 request = new Request.Builder()
                         .url(url)
                         .build();

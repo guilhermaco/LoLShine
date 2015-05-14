@@ -3,27 +3,26 @@ package br.com.unibratec.lolshine;
 import java.io.Serializable;
 
 public class GameStats implements Serializable{
+    private int timePlayed;
     private int level;
-    private int goldEarned;
-    private int numDeaths;
-    private int minionsKilled;
     private int championsKilled;
-    private int goldSpent;
+    private int numDeaths;
+    private int assists;
+    private int minionsKilled;
+    private int neutralMinionsKilled;
     private int totalDamageDealt;
-    private int doubleKills;
-    private int killingSprees;
-    private int largestKillingSpree;
-    private int team;
-    private boolean win;
-    private int largestMultiKill;
     private int physicalDamageDealtPlayer;
     private int magicDamageDealtPlayer;
     private int physicalDamageTaken;
     private int magicDamageTaken;
-    private int timePlayed;
-    private int totalHeal;
-    private int totalUnitsHealed;
-    private int assists;
+    private int physicalDamageDealtToChampions;
+    private int magicDamageDealtToChampions;
+    private int totalDamageDealtToChampions;
+    private int largestKillingSpree;
+    private int goldEarned;
+    private int largestMultiKill;
+    private int killingSprees;
+    private int goldSpent;
     private int item0;
     private int item1;
     private int item2;
@@ -31,13 +30,26 @@ public class GameStats implements Serializable{
     private int item4;
     private int item5;
     private int item6;
-    private int magicDamageDealtToChampions;
-    private int physicalDamageDealtToChampions;
-    private int totalDamageDealtToChampions;
+    private int doubleKills;
+    private int tripleKills;
+    private int quadraKills;
+    private int pentaKills;
+    private int team;
+    private int totalHeal;
+    private int totalUnitsHealed;
     private int trueDamageDealtPlayer;
     private int trueDamageDealtToChampions;
     private int trueDamageTaken;
     private int totalTimeCrowdControlDealt;
+    private boolean win;
+
+    public int getTimePlayed() {
+        return timePlayed;
+    }
+
+    public void setTimePlayed(int timePlayed) {
+        this.timePlayed = timePlayed;
+    }
 
     public int getLevel() {
         return level;
@@ -45,30 +57,6 @@ public class GameStats implements Serializable{
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public int getGoldEarned() {
-        return goldEarned;
-    }
-
-    public void setGoldEarned(int goldEarned) {
-        this.goldEarned = goldEarned;
-    }
-
-    public int getNumDeaths() {
-        return numDeaths;
-    }
-
-    public void setNumDeaths(int numDeaths) {
-        this.numDeaths = numDeaths;
-    }
-
-    public int getMinionsKilled() {
-        return minionsKilled;
-    }
-
-    public void setMinionsKilled(int minionsKilled) {
-        this.minionsKilled = minionsKilled;
     }
 
     public int getChampionsKilled() {
@@ -79,12 +67,36 @@ public class GameStats implements Serializable{
         this.championsKilled = championsKilled;
     }
 
-    public int getGoldSpent() {
-        return goldSpent;
+    public int getNumDeaths() {
+        return numDeaths;
     }
 
-    public void setGoldSpent(int goldSpent) {
-        this.goldSpent = goldSpent;
+    public void setNumDeaths(int numDeaths) {
+        this.numDeaths = numDeaths;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public int getMinionsKilled() {
+        return minionsKilled;
+    }
+
+    public void setMinionsKilled(int minionsKilled) {
+        this.minionsKilled = minionsKilled;
+    }
+
+    public int getNeutralMinionsKilled() {
+        return neutralMinionsKilled;
+    }
+
+    public void setNeutralMinionsKilled(int neutralMinionsKilled) {
+        this.neutralMinionsKilled = neutralMinionsKilled;
     }
 
     public int getTotalDamageDealt() {
@@ -93,54 +105,6 @@ public class GameStats implements Serializable{
 
     public void setTotalDamageDealt(int totalDamageDealt) {
         this.totalDamageDealt = totalDamageDealt;
-    }
-
-    public int getDoubleKills() {
-        return doubleKills;
-    }
-
-    public void setDoubleKills(int doubleKills) {
-        this.doubleKills = doubleKills;
-    }
-
-    public int getKillingSprees() {
-        return killingSprees;
-    }
-
-    public void setKillingSprees(int killingSprees) {
-        this.killingSprees = killingSprees;
-    }
-
-    public int getLargestKillingSpree() {
-        return largestKillingSpree;
-    }
-
-    public void setLargestKillingSpree(int largestKillingSpree) {
-        this.largestKillingSpree = largestKillingSpree;
-    }
-
-    public int getTeam() {
-        return team;
-    }
-
-    public void setTeam(int team) {
-        this.team = team;
-    }
-
-    public boolean isWin() {
-        return win;
-    }
-
-    public void setWin(boolean win) {
-        this.win = win;
-    }
-
-    public int getLargestMultiKill() {
-        return largestMultiKill;
-    }
-
-    public void setLargestMultiKill(int largestMultiKill) {
-        this.largestMultiKill = largestMultiKill;
     }
 
     public int getPhysicalDamageDealtPlayer() {
@@ -175,36 +139,68 @@ public class GameStats implements Serializable{
         this.magicDamageTaken = magicDamageTaken;
     }
 
-    public int getTimePlayed() {
-        return timePlayed;
+    public int getMagicDamageDealtToChampions() {
+        return magicDamageDealtToChampions;
     }
 
-    public void setTimePlayed(int timePlayed) {
-        this.timePlayed = timePlayed;
+    public void setMagicDamageDealtToChampions(int magicDamageDealtToChampions) {
+        this.magicDamageDealtToChampions = magicDamageDealtToChampions;
     }
 
-    public int getTotalHeal() {
-        return totalHeal;
+    public int getPhysicalDamageDealtToChampions() {
+        return physicalDamageDealtToChampions;
     }
 
-    public void setTotalHeal(int totalHeal) {
-        this.totalHeal = totalHeal;
+    public void setPhysicalDamageDealtToChampions(int physicalDamageDealtToChampions) {
+        this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
     }
 
-    public int getTotalUnitsHealed() {
-        return totalUnitsHealed;
+    public int getTotalDamageDealtToChampions() {
+        return totalDamageDealtToChampions;
     }
 
-    public void setTotalUnitsHealed(int totalUnitsHealed) {
-        this.totalUnitsHealed = totalUnitsHealed;
+    public void setTotalDamageDealtToChampions(int totalDamageDealtToChampions) {
+        this.totalDamageDealtToChampions = totalDamageDealtToChampions;
     }
 
-    public int getAssists() {
-        return assists;
+    public int getKillingSprees() {
+        return killingSprees;
     }
 
-    public void setAssists(int assists) {
-        this.assists = assists;
+    public void setKillingSprees(int killingSprees) {
+        this.killingSprees = killingSprees;
+    }
+
+    public int getLargestKillingSpree() {
+        return largestKillingSpree;
+    }
+
+    public void setLargestKillingSpree(int largestKillingSpree) {
+        this.largestKillingSpree = largestKillingSpree;
+    }
+
+    public int getGoldEarned() {
+        return goldEarned;
+    }
+
+    public void setGoldEarned(int goldEarned) {
+        this.goldEarned = goldEarned;
+    }
+
+    public int getGoldSpent() {
+        return goldSpent;
+    }
+
+    public void setGoldSpent(int goldSpent) {
+        this.goldSpent = goldSpent;
+    }
+
+    public int getLargestMultiKill() {
+        return largestMultiKill;
+    }
+
+    public void setLargestMultiKill(int largestMultiKill) {
+        this.largestMultiKill = largestMultiKill;
     }
 
     public int getItem0() {
@@ -263,28 +259,60 @@ public class GameStats implements Serializable{
         this.item6 = item6;
     }
 
-    public int getMagicDamageDealtToChampions() {
-        return magicDamageDealtToChampions;
+    public int getDoubleKills() {
+        return doubleKills;
     }
 
-    public void setMagicDamageDealtToChampions(int magicDamageDealtToChampions) {
-        this.magicDamageDealtToChampions = magicDamageDealtToChampions;
+    public void setDoubleKills(int doubleKills) {
+        this.doubleKills = doubleKills;
     }
 
-    public int getPhysicalDamageDealtToChampions() {
-        return physicalDamageDealtToChampions;
+    public int getTripleKills() {
+        return tripleKills;
     }
 
-    public void setPhysicalDamageDealtToChampions(int physicalDamageDealtToChampions) {
-        this.physicalDamageDealtToChampions = physicalDamageDealtToChampions;
+    public void setTripleKills(int tripleKills) {
+        this.tripleKills = tripleKills;
     }
 
-    public int getTotalDamageDealtToChampions() {
-        return totalDamageDealtToChampions;
+    public int getQuadraKills() {
+        return quadraKills;
     }
 
-    public void setTotalDamageDealtToChampions(int totalDamageDealtToChampions) {
-        this.totalDamageDealtToChampions = totalDamageDealtToChampions;
+    public void setQuadraKills(int quadraKills) {
+        this.quadraKills = quadraKills;
+    }
+
+    public int getPentaKills() {
+        return pentaKills;
+    }
+
+    public void setPentaKills(int pentaKills) {
+        this.pentaKills = pentaKills;
+    }
+
+    public int getTeam() {
+        return team;
+    }
+
+    public void setTeam(int team) {
+        this.team = team;
+    }
+
+    public int getTotalHeal() {
+        return totalHeal;
+    }
+
+    public void setTotalHeal(int totalHeal) {
+        this.totalHeal = totalHeal;
+    }
+
+    public int getTotalUnitsHealed() {
+        return totalUnitsHealed;
+    }
+
+    public void setTotalUnitsHealed(int totalUnitsHealed) {
+        this.totalUnitsHealed = totalUnitsHealed;
     }
 
     public int getTrueDamageDealtPlayer() {
@@ -317,5 +345,13 @@ public class GameStats implements Serializable{
 
     public void setTotalTimeCrowdControlDealt(int totalTimeCrowdControlDealt) {
         this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
+    }
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 }
