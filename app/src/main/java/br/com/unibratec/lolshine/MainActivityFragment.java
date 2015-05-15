@@ -1,11 +1,17 @@
 package br.com.unibratec.lolshine;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +34,35 @@ public class MainActivityFragment extends Fragment {
     private ListView mListView;
 
     public MainActivityFragment() {
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        if (null != searchView) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getActivity().getComponentName()));
+            searchView.setIconifiedByDefault(false);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    LoLShineTask task = new LoLShineTask();
+                    task.execute(query.toLowerCase());
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return true;
+                }
+            });
+        }
+
     }
 
     @Override
@@ -35,10 +70,7 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        LoLShineTask task = new LoLShineTask();
 
-        String summonerName = "Dragonfly".toLowerCase();
-        task.execute(summonerName);
 
         mListView = (ListView) view.findViewById(R.id.listView_matches);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,8 +85,7 @@ public class MainActivityFragment extends Fragment {
 
         return view;
     }
-
-    public class LoLShineTask extends AsyncTask<String, Void, List<Game>>{
+    public class LoLShineTask extends AsyncTask<String, Void, List<Game>> {
 
         @Override
         protected List<Game> doInBackground(String... params) {
@@ -98,6 +129,7 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Game> games) {
             mListView.setAdapter(new GameAdapter(getActivity(), games));
+            Log.d("GMC", "TASK!");
         }
     }
 }
