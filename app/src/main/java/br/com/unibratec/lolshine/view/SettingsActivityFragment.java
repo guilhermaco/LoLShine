@@ -17,6 +17,7 @@ public class SettingsActivityFragment extends PreferenceFragment implements Pref
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        bindPreferenceSummary(findPreference(getString(R.string.pref_summoner_name_key)));
         bindPreferenceSummary(findPreference(getString(R.string.pref_region_key)));
     }
 

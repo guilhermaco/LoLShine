@@ -93,8 +93,8 @@ public class MainActivityFragment extends Fragment {
         }
         return view;
     }
-    public class LoLShineTask extends AsyncTask<String, Void, List<Game>> {
 
+    public class LoLShineTask extends AsyncTask<String, Void, List<Game>> {
         @Override
         protected List<Game> doInBackground(String... params) {
             String url;
@@ -103,7 +103,6 @@ public class MainActivityFragment extends Fragment {
             Request request;
 
             try {
-
                 SharedPreferences sharedPrefs =
                         PreferenceManager.getDefaultSharedPreferences(getActivity());
                 String region = sharedPrefs.getString(
