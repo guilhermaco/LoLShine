@@ -1,4 +1,4 @@
-package br.com.unibratec.lolshine;
+package br.com.unibratec.lolshine.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import br.com.unibratec.lolshine.R;
+import br.com.unibratec.lolshine.model.Game;
 
 public class GameDetailFragment extends Fragment {
 

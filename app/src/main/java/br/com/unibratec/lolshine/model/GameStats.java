@@ -1,4 +1,4 @@
-package br.com.unibratec.lolshine;
+package br.com.unibratec.lolshine.model;
 
 import java.io.Serializable;
 
@@ -15,14 +15,13 @@ public class GameStats implements Serializable{
     private int magicDamageDealtPlayer;
     private int physicalDamageTaken;
     private int magicDamageTaken;
+    private int totalDamageDealtToChampions;
     private int physicalDamageDealtToChampions;
     private int magicDamageDealtToChampions;
-    private int totalDamageDealtToChampions;
     private int largestKillingSpree;
     private int goldEarned;
     private int largestMultiKill;
     private int killingSprees;
-    private int goldSpent;
     private int item0;
     private int item1;
     private int item2;
@@ -35,12 +34,6 @@ public class GameStats implements Serializable{
     private int quadraKills;
     private int pentaKills;
     private int team;
-    private int totalHeal;
-    private int totalUnitsHealed;
-    private int trueDamageDealtPlayer;
-    private int trueDamageDealtToChampions;
-    private int trueDamageTaken;
-    private int totalTimeCrowdControlDealt;
     private boolean win;
 
     public int getTimePlayed() {
@@ -187,14 +180,6 @@ public class GameStats implements Serializable{
         this.goldEarned = goldEarned;
     }
 
-    public int getGoldSpent() {
-        return goldSpent;
-    }
-
-    public void setGoldSpent(int goldSpent) {
-        this.goldSpent = goldSpent;
-    }
-
     public int getLargestMultiKill() {
         return largestMultiKill;
     }
@@ -299,53 +284,6 @@ public class GameStats implements Serializable{
         this.team = team;
     }
 
-    public int getTotalHeal() {
-        return totalHeal;
-    }
-
-    public void setTotalHeal(int totalHeal) {
-        this.totalHeal = totalHeal;
-    }
-
-    public int getTotalUnitsHealed() {
-        return totalUnitsHealed;
-    }
-
-    public void setTotalUnitsHealed(int totalUnitsHealed) {
-        this.totalUnitsHealed = totalUnitsHealed;
-    }
-
-    public int getTrueDamageDealtPlayer() {
-        return trueDamageDealtPlayer;
-    }
-
-    public void setTrueDamageDealtPlayer(int trueDamageDealtPlayer) {
-        this.trueDamageDealtPlayer = trueDamageDealtPlayer;
-    }
-
-    public int getTrueDamageDealtToChampions() {
-        return trueDamageDealtToChampions;
-    }
-
-    public void setTrueDamageDealtToChampions(int trueDamageDealtToChampions) {
-        this.trueDamageDealtToChampions = trueDamageDealtToChampions;
-    }
-
-    public int getTrueDamageTaken() {
-        return trueDamageTaken;
-    }
-
-    public void setTrueDamageTaken(int trueDamageTaken) {
-        this.trueDamageTaken = trueDamageTaken;
-    }
-
-    public int getTotalTimeCrowdControlDealt() {
-        return totalTimeCrowdControlDealt;
-    }
-
-    public void setTotalTimeCrowdControlDealt(int totalTimeCrowdControlDealt) {
-        this.totalTimeCrowdControlDealt = totalTimeCrowdControlDealt;
-    }
 
     public boolean isWin() {
         return win;

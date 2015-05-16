@@ -1,4 +1,4 @@
-package br.com.unibratec.lolshine;
+package br.com.unibratec.lolshine.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,16 +9,17 @@ public class Game implements Serializable{
     private String gameMode;
     private String gameType;
     private String subType;
-    private int mapId;
+    //          |
+    // PLAYER! \/
     private int teamId;
     private int championId;
     private int spell1;
     private int spell2;
     private int level;
-    private int ipEarned;
-    private long createDate;
-    private List<FellowPlayer> fellowPlayers;
     private GameStats stats;
+    // PLAYER! /\
+    //         |
+    private List<Player> fellowPlayers;
 
     public long getGameId() {
         return gameId;
@@ -58,14 +59,6 @@ public class Game implements Serializable{
 
     public void setSubType(String subType) {
         this.subType = subType;
-    }
-
-    public int getMapId() {
-        return mapId;
-    }
-
-    public void setMapId(int mapId) {
-        this.mapId = mapId;
     }
 
     public int getTeamId() {
@@ -108,27 +101,11 @@ public class Game implements Serializable{
         this.level = level;
     }
 
-    public int getIpEarned() {
-        return ipEarned;
-    }
-
-    public void setIpEarned(int ipEarned) {
-        this.ipEarned = ipEarned;
-    }
-
-    public long getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(long createDate) {
-        this.createDate = createDate;
-    }
-
-    public List<FellowPlayer> getFellowPlayers() {
+    public List<Player> getFellowPlayers() {
         return fellowPlayers;
     }
 
-    public void setFellowPlayers(List<FellowPlayer> fellowPlayers) {
+    public void setFellowPlayers(List<Player> fellowPlayers) {
         this.fellowPlayers = fellowPlayers;
     }
 

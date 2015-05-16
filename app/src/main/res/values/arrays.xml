@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_region_options" >
+        <item>BR</item>
+        <item>NA</item>
+        <item>EUNE</item>
+        <item>EUW</item>
+        <item>KR</item>
+        <item>LAN</item>
+        <item>LAS</item>
+        <item>OCE</item>
+        <item>EU</item>
+        <item>TR</item>
+    </string-array>
+    <string-array name="pref_region_options_values">
+        <item>br</item>
+        <item>na</item>
+        <item>eune</item>
+        <item>euw</item>
+        <item>kr</item>
+        <item>lan</item>
+        <item>las</item>
+        <item>oce</item>
+        <item>eu</item>
+        <item>tr</item>
+    </string-array>
+</resources>

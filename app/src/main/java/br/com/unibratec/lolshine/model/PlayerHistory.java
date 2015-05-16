@@ -1,4 +1,4 @@
-package br.com.unibratec.lolshine;
+package br.com.unibratec.lolshine.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

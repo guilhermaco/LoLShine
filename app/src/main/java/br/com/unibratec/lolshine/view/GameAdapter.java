@@ -1,4 +1,4 @@
-package br.com.unibratec.lolshine;
+package br.com.unibratec.lolshine.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import br.com.unibratec.lolshine.R;
+import br.com.unibratec.lolshine.model.Game;
 
 public class GameAdapter extends ArrayAdapter<Game> {
 
