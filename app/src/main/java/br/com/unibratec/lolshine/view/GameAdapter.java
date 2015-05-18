@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.com.unibratec.lolshine.R;
 import br.com.unibratec.lolshine.model.Game;
+import br.com.unibratec.lolshine.model.Utility;
 
 public class GameAdapter extends ArrayAdapter<Game> {
 
@@ -33,7 +34,8 @@ public class GameAdapter extends ArrayAdapter<Game> {
         TextView txtDeaths = (TextView)convertView.findViewById(R.id.textView_deaths);
         TextView txtAssists = (TextView)convertView.findViewById(R.id.textView_assists);
 
-        imgChampion.setImageResource(R.mipmap.ic_launcher);
+        int championId = game.getChampionId();
+        imgChampion.setImageResource(Utility.getChampionIconResource(championId));
         txtQueueType.setText(game.getGameMode());
         txtWinnner.setText(game.getStats().isWin() ? "WIN" : "LOSE");
         txtKills.setText(String.valueOf(game.getStats().getChampionsKilled()+"/"));

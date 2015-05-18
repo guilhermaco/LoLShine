@@ -69,6 +69,7 @@ public class MainActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         mListView = (ListView) view.findViewById(R.id.listView_matches);
+        // mSummonerName = (TextView) view.findViewById(R.id.textView_summonerName);
         // Passa os matches do mPlayHistory para a outra activity
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
