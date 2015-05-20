@@ -1,8 +1,25 @@
 package br.com.unibratec.lolshine.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import br.com.unibratec.lolshine.R;
 
 public class Utility {
+
+    public static String getRegionSetting(Context context){
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(
+                context.getString(R.string.pref_region_key),
+                context.getString(R.string.pref_region_default));
+    }
+
+    public static  boolean isTablet(Context context){
+        return context.getResources().getBoolean(R.bool.isTablet);
+    }
+
     /**
      * Helper method to provide the icon resource id according to the champion id returned
      */
@@ -260,4 +277,5 @@ public class Utility {
                 return R.mipmap.ic_launcher;
         }
     }
+
 }

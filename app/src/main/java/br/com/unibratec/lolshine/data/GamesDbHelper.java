@@ -19,7 +19,8 @@ public class GamesDbHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_PLAYER_TABLE = "CREATE TABLE " + PlayerEntry.TABLE_NAME + " (" +
-                PlayerEntry._ID + " INTEGER PRIMARY KEY," +
+                PlayerEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                PlayerEntry.COLUMN_SUMMONER_ID + " INTEGER NOT NULL, " +
                 PlayerEntry.COLUMN_CHAMPION_ID + " INTEGER NOT NULL, " +
                 PlayerEntry.COLUMN_TEAM_ID + " INTEGER NOT NULL, " +
                 PlayerEntry.COLUMN_SPELL_1 + " INTEGER, " +
@@ -33,7 +34,7 @@ public class GamesDbHelper extends SQLiteOpenHelper{
                 PlayerEntry.COLUMN_MINIONS_KILLED + " INTEGER, " +
                 PlayerEntry.COLUMN_NEUTRAL_MINIONS_KILLED + " INTEGER, " +
                 PlayerEntry.COLUMN_TOTAL_DAMAGE_DEALT + " INTEGER, " +
-                PlayerEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_PLAYER + " INTEGERL, " +
+                PlayerEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_PLAYER + " INTEGER, " +
                 PlayerEntry.COLUMN_MAGIC_DAMAGE_DEALT_PLAYER + " INTEGER, " +
                 PlayerEntry.COLUMN_PHYSICAL_DAMAGE_TAKEN + " INTEGER, " +
                 PlayerEntry.COLUMN_MAGIC_DAMAGE_TAKEN + " INTEGER, " +
@@ -55,17 +56,18 @@ public class GamesDbHelper extends SQLiteOpenHelper{
                 PlayerEntry.COLUMN_TRIPLE_KILLS + " INTEGER, " +
                 PlayerEntry.COLUMN_QUADRA_KILLS + " INTEGER, " +
                 PlayerEntry.COLUMN_PENTA_KILLS + " INTEGER , " +
-                PlayerEntry.COLUMN_WIN + " TEXT " + " );";
+                PlayerEntry.COLUMN_WIN + " TEXT " + " )";
 
         final String SQL_CREATE_GAME_TABLE = "CREATE TABLE " + GameEntry.TABLE_NAME + " (" +
-                GameEntry._ID + " INTEGER PRIMARY KEY," +
-                GameEntry.COLUMN_GAME_MODE + " INTEGER NOT NULL, " +
-                GameEntry.COLUMN_GAME_TYPE + " INTEGER NOT NULL, " +
-                GameEntry.COLUMN_GAME_SUBTYPE + " INTEGER NOT NULL, " +
+                GameEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                GameEntry.COLUMN_GAME_ID + " INTEGER NOT NULL, " +
+                GameEntry.COLUMN_GAME_MODE + " TEXT NOT NULL, " +
+                GameEntry.COLUMN_GAME_TYPE + " TEXT NOT NULL, " +
+                GameEntry.COLUMN_GAME_SUBTYPE + " TEXT NOT NULL, " +
                 GameEntry.COLUMN_INVALID + " TEXT, " +
-
+                GameEntry.COLUMN_PLAYER_KEY +" INTEGER, "+
                 " FOREIGN KEY (" + GameEntry.COLUMN_PLAYER_KEY + ") REFERENCES " +
-                PlayerEntry.TABLE_NAME + " (" + PlayerEntry._ID + ");";
+                PlayerEntry.TABLE_NAME + " (" + PlayerEntry._ID + "))";
 
         db.execSQL(SQL_CREATE_PLAYER_TABLE);
         db.execSQL(SQL_CREATE_GAME_TABLE);

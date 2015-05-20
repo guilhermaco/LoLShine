@@ -1,27 +1,40 @@
 package br.com.unibratec.lolshine.data;
 
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class GameContract {
     public static final String CONTENT_AUTHORITY = "br.com.unibratec.lolshine";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://"+ CONTENT_AUTHORITY);
+    public static final String PATH_GAME = "game";
+    public static final String PATH_PLAYER = "player";
 
     public static final class GameEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_GAME).build();
 
         public static final String TABLE_NAME = "game";
 
+        public static final String COLUMN_GAME_ID = "game_id";
         public static final String COLUMN_PLAYER_KEY = "player_id";
         public static final String COLUMN_GAME_MODE = "game_mode";
         public static final String COLUMN_GAME_TYPE = "game_type";
         public static final String COLUMN_GAME_SUBTYPE = "game_subtype";
         public static final String COLUMN_INVALID = "invalid";
+
+        public static Uri buildGameUri(long id){
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
     }
 
     public static final class PlayerEntry implements BaseColumns{
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLAYER).build();
 
         public static final String TABLE_NAME = "player";
 
+        public static final String COLUMN_SUMMONER_ID = "summoner_id";
         public static final String COLUMN_CHAMPION_ID = "champion_id";
         public static final String COLUMN_TEAM_ID = "team_id";
         public static final String COLUMN_TIME_PLAYED = "time_played";
@@ -37,8 +50,8 @@ public class GameContract {
         public static final String COLUMN_TOTAL_DAMAGE_DEALT = "total_damage_dealt";
         public static final String COLUMN_PHYSICAL_DAMAGE_DEALT_PLAYER = "physical_damage_dealt_player";
         public static final String COLUMN_MAGIC_DAMAGE_DEALT_PLAYER = "magic_damage_dealt_player";
-        public static final String COLUMN_PHYSICAL_DAMAGE_TAKEN = "physical_damage_dealt_taken";
-        public static final String COLUMN_MAGIC_DAMAGE_TAKEN = "magic_damage_dealt_taken";
+        public static final String COLUMN_PHYSICAL_DAMAGE_TAKEN = "physical_damage_taken";
+        public static final String COLUMN_MAGIC_DAMAGE_TAKEN = "magic_damage_taken";
         public static final String COLUMN_TOTAL_DAMAGE_DEALT_CHAMPIONS = "total_damage_dealt_champions";
         public static final String COLUMN_PHYSICAL_DAMAGE_DEALT_CHAMPIONS = "physical_damage_dealt_champions";
         public static final String COLUMN_MAGIC_DAMAGE_DEALT_CHAMPIONS = "magic_damage_dealt_champions";
@@ -58,5 +71,9 @@ public class GameContract {
         public static final String COLUMN_QUADRA_KILLS = "quadra_kills";
         public static final String COLUMN_PENTA_KILLS = "penta_kills";
         public static final String COLUMN_WIN = "win";
+
+        public static Uri buildPlayerUri(long id){
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
     }
 }

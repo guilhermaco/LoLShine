@@ -9,9 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.unibratec.lolshine.R;
+import br.com.unibratec.lolshine.model.Game;
+import br.com.unibratec.lolshine.model.OnItemSelectedCallback;
+import br.com.unibratec.lolshine.model.Utility;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OnItemSelectedCallback {
+
+    private boolean isTablet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +25,21 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String summonerName = sharedPreferences.getString(getString(R.string.pref_summoner_name_key),
-                getString(R.string.pref_summoner_name_default));
+        String summonerName = sharedPreferences.getString(getString(R.string.pref_summoner_name_key),getString(R.string.pref_summoner_name_default));
         if (summonerName == null || summonerName.isEmpty()){
             startActivity(new Intent(this, SettingsActivity.class));
         }
+        isTablet = Utility.isTablet(this);
+
+        /*if (isTablet) {
+            if (savedInstanceState == null) {
+                Game game =
+
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, GameDetailFragment.newInstance(game))
+                        .commit();
+            }
+        }*/
     }
 
 
@@ -48,5 +64,18 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(Game game) {
+       /* if(isTablet){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, GameDetailFragment.newInstance(game))
+                    .commit();
+        } else{
+            Intent it = new Intent(this, DetailActivity.class);
+            it.putExtra("weather_date", date);
+            startActivity(it);
+        }*/
     }
 }

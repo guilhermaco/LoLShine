@@ -23,6 +23,16 @@ public class GameDetailFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game_detail, container, false);
     }
 
+    public static GameDetailFragment newInstance(Game game){
+        Bundle params = new Bundle();
+        params.putSerializable("game", game);
+
+        GameDetailFragment gameDetailFragment = new GameDetailFragment();
+        gameDetailFragment.setArguments(params);
+
+        return gameDetailFragment;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
