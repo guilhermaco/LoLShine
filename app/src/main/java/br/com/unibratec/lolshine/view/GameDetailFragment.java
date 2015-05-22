@@ -1,8 +1,6 @@
 package br.com.unibratec.lolshine.view;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +12,9 @@ import br.com.unibratec.lolshine.model.Game;
 
 public class GameDetailFragment extends Fragment {
 
-    public GameDetailFragment() {
-    }
+    private Game mGame;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_game_detail, container, false);
+    public GameDetailFragment() {
     }
 
     public static GameDetailFragment newInstance(Game game){
@@ -34,11 +28,12 @@ public class GameDetailFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        Intent it = getActivity().getIntent();
-        Game game = (Game) it.getSerializableExtra("game");
+        View view = inflater.inflate(R.layout.fragment_game_detail, container, false);
+
+        mGame = (Game) getArguments().getSerializable("game");
 
         TextView txtTimePlayed = (TextView) view.findViewById(R.id.textView_timePlayed);
         TextView txtLevel = (TextView) view.findViewById(R.id.textView_level);
@@ -59,23 +54,25 @@ public class GameDetailFragment extends Fragment {
         TextView txtGoldEarned = (TextView) view.findViewById(R.id.textView_goldEarned);
         TextView txtLargestMultiKill = (TextView) view.findViewById(R.id.textView_largestMultiKill);
 
-        txtTimePlayed.setText("Time Played: " + String.valueOf(game.getStats().getTimePlayed()));
-        txtLevel.setText("Level: " + String.valueOf(game.getStats().getLevel()));
-        txtChampionsKilled.setText("Kills: " + String.valueOf(game.getStats().getChampionsKilled()));
-        txtNumDeaths.setText("Deaths: " + String.valueOf(game.getStats().getNumDeaths()));
-        txtAssists.setText("Assists: " + String.valueOf(game.getStats().getAssists()));
-        txtMinionsKilled.setText("Minions Killed: " + String.valueOf(game.getStats().getMinionsKilled()));
-        txtNeutralMinionsKilled.setText("Neutral Minions Killed: " + String.valueOf(game.getStats().getNeutralMinionsKilled()));
-        txtTotalDamageDelt.setText("Total Damage Dealt: " + String.valueOf(game.getStats().getTotalDamageDealt()));
-        txtPhysicalDamageDealtPlayer.setText("Physical Damage Dealt: " + String.valueOf(game.getStats().getPhysicalDamageDealtPlayer()));
-        txtMagicDamageDealtPlayer.setText("Magic Damage Dealt: " + String.valueOf(game.getStats().getMagicDamageDealtPlayer()));
-        txtPhysicalDamageTaken.setText("Physical Dagame Taken: " + String.valueOf(game.getStats().getPhysicalDamageTaken()));
-        txtMagicDamageTaken.setText("Magic Damage Taken: " + String.valueOf(game.getStats().getMagicDamageTaken()));
-        txtPhysicalDamageDealtToChampions.setText("Physical Damage Dealt To Champions: " + String.valueOf(game.getStats().getPhysicalDamageDealtToChampions()));
-        txtMagicDamageDealtToChampions.setText("Magic Damage Dealt To Champions: " + String.valueOf(game.getStats().getMagicDamageDealtToChampions()));
-        txtTotalDamageDealtToChampions.setText("Total Damage Dealt To Champions: " + String.valueOf(game.getStats().getTotalDamageDealtToChampions()));
-        txtLargestKillingSpree.setText("Largest Killing Spree: " + String.valueOf(game.getStats().getLargestKillingSpree()));
-        txtGoldEarned.setText("Gold Earned: " + String.valueOf(game.getStats().getGoldEarned()));
-        txtLargestMultiKill.setText("Largest Multi Kill: " + String.valueOf(game.getStats().getLargestMultiKill()));
+        txtTimePlayed.setText("Time Played: " + String.valueOf(mGame.getStats().getTimePlayed()));
+        txtLevel.setText("Level: " + String.valueOf(mGame.getStats().getLevel()));
+        txtChampionsKilled.setText("Kills: " + String.valueOf(mGame.getStats().getChampionsKilled()));
+        txtNumDeaths.setText("Deaths: " + String.valueOf(mGame.getStats().getNumDeaths()));
+        txtAssists.setText("Assists: " + String.valueOf(mGame.getStats().getAssists()));
+        txtMinionsKilled.setText("Minions Killed: " + String.valueOf(mGame.getStats().getMinionsKilled()));
+        txtNeutralMinionsKilled.setText("Neutral Minions Killed: " + String.valueOf(mGame.getStats().getNeutralMinionsKilled()));
+        txtTotalDamageDelt.setText("Total Damage Dealt: " + String.valueOf(mGame.getStats().getTotalDamageDealt()));
+        txtPhysicalDamageDealtPlayer.setText("Physical Damage Dealt: " + String.valueOf(mGame.getStats().getPhysicalDamageDealtPlayer()));
+        txtMagicDamageDealtPlayer.setText("Magic Damage Dealt: " + String.valueOf(mGame.getStats().getMagicDamageDealtPlayer()));
+        txtPhysicalDamageTaken.setText("Physical Dagame Taken: " + String.valueOf(mGame.getStats().getPhysicalDamageTaken()));
+        txtMagicDamageTaken.setText("Magic Damage Taken: " + String.valueOf(mGame.getStats().getMagicDamageTaken()));
+        txtPhysicalDamageDealtToChampions.setText("Physical Damage Dealt To Champions: " + String.valueOf(mGame.getStats().getPhysicalDamageDealtToChampions()));
+        txtMagicDamageDealtToChampions.setText("Magic Damage Dealt To Champions: " + String.valueOf(mGame.getStats().getMagicDamageDealtToChampions()));
+        txtTotalDamageDealtToChampions.setText("Total Damage Dealt To Champions: " + String.valueOf(mGame.getStats().getTotalDamageDealtToChampions()));
+        txtLargestKillingSpree.setText("Largest Killing Spree: " + String.valueOf(mGame.getStats().getLargestKillingSpree()));
+        txtGoldEarned.setText("Gold Earned: " + String.valueOf(mGame.getStats().getGoldEarned()));
+        txtLargestMultiKill.setText("Largest Multi Kill: " + String.valueOf(mGame.getStats().getLargestMultiKill()));
+
+        return view;
     }
 }

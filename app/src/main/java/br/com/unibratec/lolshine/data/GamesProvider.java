@@ -35,8 +35,28 @@ public class GamesProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        SQLiteDatabase db = mGamesDbHelper.getWritableDatabase();
+        int affectedRows = 0;
+        final int uriType = sUriMatcher.match(uri);
+        if(selection == null){selection = "1";}
+        switch (uriType) {
+            case PLAYER: {
+                affectedRows = db.delete(GameContract.PlayerEntry.TABLE_NAME,
+                        selection, selectionArgs);
+                break;
+            }
+            case GAME: {
+                affectedRows = db.delete(GameContract.GameEntry.TABLE_NAME,
+                        selection, selectionArgs);
+                break;
+            }
+            default:
+                throw new UnsupportedOperationException("Unknown uri: "+ uri);
+        }
+        if (affectedRows != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return affectedRows;
     }
 
     @Override
@@ -88,14 +108,60 @@ public class GamesProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        // TODO: Implement this to handle query requests from clients.
-        throw new UnsupportedOperationException("Not yet implemented");
+        Cursor retCursor = null;
+        switch (sUriMatcher.match(uri)) {
+            case PLAYER: {
+                retCursor = mGamesDbHelper.getReadableDatabase().query(
+                        GameContract.PlayerEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            }
+            case GAME: {
+                retCursor = mGamesDbHelper.getReadableDatabase().query(
+                        GameContract.GameEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            }
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return retCursor;
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        // TODO: Implement this to handle requests to update one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        SQLiteDatabase db = mGamesDbHelper.getWritableDatabase();
+        int affectedRows = 0;
+        final int uriType = sUriMatcher.match(uri);
+        switch (uriType) {
+            case PLAYER: {
+                affectedRows = db.update(GameContract.PlayerEntry.TABLE_NAME,
+                        values, selection, selectionArgs);
+                break;
+            }
+            case GAME: {
+                affectedRows = db.update(GameContract.GameEntry.TABLE_NAME,
+                        values, selection, selectionArgs);
+                break;
+            }
+            default:
+                throw new UnsupportedOperationException("Unknown uri: "+ uri);
+        }
+        if (affectedRows != 0){
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return affectedRows;
     }
 }

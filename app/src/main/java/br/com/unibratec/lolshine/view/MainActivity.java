@@ -23,23 +23,12 @@ public class MainActivity extends ActionBarActivity implements OnItemSelectedCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        isTablet = Utility.isTablet(this);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String summonerName = sharedPreferences.getString(getString(R.string.pref_summoner_name_key),getString(R.string.pref_summoner_name_default));
         if (summonerName == null || summonerName.isEmpty()){
             startActivity(new Intent(this, SettingsActivity.class));
         }
-        isTablet = Utility.isTablet(this);
-
-        /*if (isTablet) {
-            if (savedInstanceState == null) {
-                Game game =
-
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, GameDetailFragment.newInstance(game))
-                        .commit();
-            }
-        }*/
     }
 
 
@@ -68,14 +57,14 @@ public class MainActivity extends ActionBarActivity implements OnItemSelectedCal
 
     @Override
     public void onItemSelected(Game game) {
-       /* if(isTablet){
+        if(isTablet){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, GameDetailFragment.newInstance(game))
+                    .replace(R.id.container, GameDetailFragment.newInstance(game), "game_detail")
                     .commit();
         } else{
-            Intent it = new Intent(this, DetailActivity.class);
-            it.putExtra("weather_date", date);
+            Intent it = new Intent(this, GameDetailActivity.class);
+            it.putExtra("game", game);
             startActivity(it);
-        }*/
+        }
     }
 }
