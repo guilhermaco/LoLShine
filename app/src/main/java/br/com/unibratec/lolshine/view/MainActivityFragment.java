@@ -92,8 +92,11 @@ public class MainActivityFragment extends Fragment {
         if (mPlayerHistory == null){
             if (task == null){
                 task = new LoLShineTask();
-                String summonerName = "dragonfly";
-                task.execute(summonerName);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String summonerName = sharedPreferences.getString(getString(R.string.pref_summoner_name_key),getString(R.string.pref_summoner_name_default));
+                if (summonerName != null && !summonerName.isEmpty()){
+                    task.execute(summonerName.replace(" ","").toLowerCase());
+                }
                 searchPlayer();
             } else if (task.getStatus() == AsyncTask.Status.FINISHED){
                 fillGameList();
