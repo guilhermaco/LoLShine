@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Game implements Serializable{
     private long gameId;
+    private long summonerId;
     private boolean invalid;
     private String gameMode;
     private String gameType;
@@ -20,6 +21,15 @@ public class Game implements Serializable{
     // PLAYER! /\
     //         |
     private List<Player> fellowPlayers;
+
+
+    public long getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId(long summonerId) {
+        this.summonerId = summonerId;
+    }
 
     public long getGameId() {
         return gameId;

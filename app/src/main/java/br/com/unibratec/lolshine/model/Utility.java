@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import br.com.unibratec.lolshine.R;
 
 public class Utility {
-
     public static String getRegionSetting(Context context){
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);

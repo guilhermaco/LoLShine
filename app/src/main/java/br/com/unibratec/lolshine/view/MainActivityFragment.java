@@ -2,11 +2,9 @@ package br.com.unibratec.lolshine.view;
 
 
 import android.app.SearchManager;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -46,6 +44,7 @@ public class MainActivityFragment extends Fragment {
     private LoLShineTask task;
     private SearchManager searchManager;
     private SearchView searchView;
+    private long mSummoneId;
 
     public MainActivityFragment() {
     }
@@ -78,10 +77,8 @@ public class MainActivityFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               // Intent it = new Intent(getActivity(), GameDetailActivity.class);
                 Game game = mPlayerHistory.getGames().get(i);
-               // it.putExtra("game", game);
-               // startActivity(it);
+                game.setGameId(mSummoneId);
                 if (getActivity() instanceof OnItemSelectedCallback) {
                     ((OnItemSelectedCallback) getActivity()).onItemSelected(game);
                 }
@@ -130,10 +127,10 @@ public class MainActivityFragment extends Fragment {
                 JSONObject summoner = new JSONObject(json);
                 JSONObject summonerData = summoner.getJSONObject(params[0]);
 
-                String summonerId = summonerData.getString("id");
-
+                long summonerId = summonerData.getLong("id");
+                mSummoneId = summonerId;
                 // Pega o historico de partidas pelo nick
-                url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.3/game/by-summoner/" + summonerId +
+                url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.3/game/by-summoner/" + String.valueOf(summonerId) +
                         "/recent?api_key=4508d11b-77d1-439b-8fad-48326122d306";
 
                 request = new Request.Builder()
@@ -190,44 +187,6 @@ public class MainActivityFragment extends Fragment {
                 int largestMultKill = pGames.get(i).getStats().getLargestMultiKill();
                 int killingSpree = pGames.get(i).getStats().getLargestKillingSpree();
                 String win = pGames.get(i).getStats().isWin() ? "Win" : "Lose";
-
-                ContentValues playerValues = new ContentValues();
-
-                playerValues.put(GameContract.PlayerEntry.COLUMN_SUMMONER_ID, Long.valueOf(summonerId));
-                playerValues.put(GameContract.PlayerEntry.COLUMN_CHAMPION_ID, championId);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_TEAM_ID, teamId);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_TIME_PLAYED, timePlayed);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_SPELL_1, spell_1);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_SPELL_2, spell_2);
-                //  playerValues.put(GameContract.PlayerEntry.COLUMN_SUMMONER_LEVEL, );
-                playerValues.put(GameContract.PlayerEntry.COLUMN_LEVEL, level);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_CHAMPIONS_KILLED, championsKilled);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_NUM_DEATHS, numDeath);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_ASSISTS, assist);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_MINIONS_KILLED, minionsKilled);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_NEUTRAL_MINIONS_KILLED, neutralMinionsKilled);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_TOTAL_DAMAGE_DEALT, totalDamageDealt);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_PLAYER, physicalDamageDealtPlayer);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_MAGIC_DAMAGE_DEALT_PLAYER, magicDamageDealtPlayer);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_PHYSICAL_DAMAGE_TAKEN, physicalDamagetaken);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_MAGIC_DAMAGE_TAKEN, magicDamageTaken);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_TOTAL_DAMAGE_DEALT_CHAMPIONS, totalDamageDealtChampion);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_CHAMPIONS, physicalDamageDealtChampion);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_MAGIC_DAMAGE_DEALT_CHAMPIONS, magicDamageDealtChampion);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_LARGEST_KILLING_SPREE, largestKillingSpree);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_GOLD_EARNED, goldEarned);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_LARGEST_MULTI_KILL, largestMultKill);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_KLLING_SPREES, killingSpree);
-                playerValues.put(GameContract.PlayerEntry.COLUMN_WIN, win);
-
-                Uri insertedUri = getActivity().getContentResolver().insert(
-                        GameContract.PlayerEntry.CONTENT_URI,
-                        playerValues
-                );
-
-                long playerId = ContentUris.parseId(insertedUri);
-
-
                 long gameId = pGames.get(i).getGameId();
                 String gameMode = pGames.get(i).getGameMode();
                 String gameType = pGames.get(i).getGameType();
@@ -235,12 +194,37 @@ public class MainActivityFragment extends Fragment {
                 String invalid = pGames.get(i).isInvalid() ? "true" : "false";
 
                 ContentValues gameValues = new ContentValues();
-                gameValues.put(GameContract.GameEntry.COLUMN_PLAYER_KEY, playerId);
                 gameValues.put(GameContract.GameEntry.COLUMN_GAME_ID, gameId);
                 gameValues.put(GameContract.GameEntry.COLUMN_GAME_MODE, gameMode);
                 gameValues.put(GameContract.GameEntry.COLUMN_GAME_TYPE, gameType);
                 gameValues.put(GameContract.GameEntry.COLUMN_GAME_SUBTYPE, gameSubType);
                 gameValues.put(GameContract.GameEntry.COLUMN_INVALID, invalid);
+                gameValues.put(GameContract.GameEntry.COLUMN_SUMMONER_ID, Long.valueOf(summonerId));
+                gameValues.put(GameContract.GameEntry.COLUMN_CHAMPION_ID, championId);
+                gameValues.put(GameContract.GameEntry.COLUMN_TEAM_ID, teamId);
+                gameValues.put(GameContract.GameEntry.COLUMN_TIME_PLAYED, timePlayed);
+                gameValues.put(GameContract.GameEntry.COLUMN_SPELL_1, spell_1);
+                gameValues.put(GameContract.GameEntry.COLUMN_SPELL_2, spell_2);
+                //  playerValues.put(GameContract.PlayerEntry.COLUMN_SUMMONER_LEVEL, );
+                gameValues.put(GameContract.GameEntry.COLUMN_LEVEL, level);
+                gameValues.put(GameContract.GameEntry.COLUMN_CHAMPIONS_KILLED, championsKilled);
+                gameValues.put(GameContract.GameEntry.COLUMN_NUM_DEATHS, numDeath);
+                gameValues.put(GameContract.GameEntry.COLUMN_ASSISTS, assist);
+                gameValues.put(GameContract.GameEntry.COLUMN_MINIONS_KILLED, minionsKilled);
+                gameValues.put(GameContract.GameEntry.COLUMN_NEUTRAL_MINIONS_KILLED, neutralMinionsKilled);
+                gameValues.put(GameContract.GameEntry.COLUMN_TOTAL_DAMAGE_DEALT, totalDamageDealt);
+                gameValues.put(GameContract.GameEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_PLAYER, physicalDamageDealtPlayer);
+                gameValues.put(GameContract.GameEntry.COLUMN_MAGIC_DAMAGE_DEALT_PLAYER, magicDamageDealtPlayer);
+                gameValues.put(GameContract.GameEntry.COLUMN_PHYSICAL_DAMAGE_TAKEN, physicalDamagetaken);
+                gameValues.put(GameContract.GameEntry.COLUMN_MAGIC_DAMAGE_TAKEN, magicDamageTaken);
+                gameValues.put(GameContract.GameEntry.COLUMN_TOTAL_DAMAGE_DEALT_CHAMPIONS, totalDamageDealtChampion);
+                gameValues.put(GameContract.GameEntry.COLUMN_PHYSICAL_DAMAGE_DEALT_CHAMPIONS, physicalDamageDealtChampion);
+                gameValues.put(GameContract.GameEntry.COLUMN_MAGIC_DAMAGE_DEALT_CHAMPIONS, magicDamageDealtChampion);
+                gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_KILLING_SPREE, largestKillingSpree);
+                gameValues.put(GameContract.GameEntry.COLUMN_GOLD_EARNED, goldEarned);
+                gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_MULTI_KILL, largestMultKill);
+                gameValues.put(GameContract.GameEntry.COLUMN_KLLING_SPREES, killingSpree);
+                gameValues.put(GameContract.GameEntry.COLUMN_WIN, win);
 
                 getActivity().getContentResolver().insert(
                         GameContract.GameEntry.CONTENT_URI,

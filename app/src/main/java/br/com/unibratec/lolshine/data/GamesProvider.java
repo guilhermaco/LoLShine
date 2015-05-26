@@ -11,7 +11,6 @@ import android.net.Uri;
 public class GamesProvider extends ContentProvider {
 
     public static final int GAME = 100;
-    public static final int PLAYER = 200;
 
     private static UriMatcher sUriMatcher = buildUriMatcher();
     private GamesDbHelper mGamesDbHelper;
@@ -22,8 +21,6 @@ public class GamesProvider extends ContentProvider {
 
         uriMatcher.addURI(authority, GameContract.PATH_GAME,
                 GAME); // 100
-        uriMatcher.addURI(authority, GameContract.PATH_PLAYER,
-                PLAYER); // 200
 
         return uriMatcher;
     }
@@ -40,11 +37,6 @@ public class GamesProvider extends ContentProvider {
         final int uriType = sUriMatcher.match(uri);
         if(selection == null){selection = "1";}
         switch (uriType) {
-            case PLAYER: {
-                affectedRows = db.delete(GameContract.PlayerEntry.TABLE_NAME,
-                        selection, selectionArgs);
-                break;
-            }
             case GAME: {
                 affectedRows = db.delete(GameContract.GameEntry.TABLE_NAME,
                         selection, selectionArgs);
@@ -61,8 +53,6 @@ public class GamesProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        // TODO: Implement this to handle requests for the MIME type of the data
-        // at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -84,15 +74,6 @@ public class GamesProvider extends ContentProvider {
                 }
                 break;
             }
-            case PLAYER:
-                long _id = db.insert(
-                        GameContract.PlayerEntry.TABLE_NAME, null, values);
-                if (_id != -1){
-                    insertedUri = GameContract.PlayerEntry.buildPlayerUri(_id);
-                } else {
-                    throw new SQLException("Fail to insert player.");
-                }
-                break;
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -110,17 +91,6 @@ public class GamesProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
         Cursor retCursor = null;
         switch (sUriMatcher.match(uri)) {
-            case PLAYER: {
-                retCursor = mGamesDbHelper.getReadableDatabase().query(
-                        GameContract.PlayerEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder);
-                break;
-            }
             case GAME: {
                 retCursor = mGamesDbHelper.getReadableDatabase().query(
                         GameContract.GameEntry.TABLE_NAME,
@@ -146,11 +116,6 @@ public class GamesProvider extends ContentProvider {
         int affectedRows = 0;
         final int uriType = sUriMatcher.match(uri);
         switch (uriType) {
-            case PLAYER: {
-                affectedRows = db.update(GameContract.PlayerEntry.TABLE_NAME,
-                        values, selection, selectionArgs);
-                break;
-            }
             case GAME: {
                 affectedRows = db.update(GameContract.GameEntry.TABLE_NAME,
                         values, selection, selectionArgs);
