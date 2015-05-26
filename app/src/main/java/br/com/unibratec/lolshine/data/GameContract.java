@@ -44,7 +44,7 @@ public class GameContract {
         public static final String COLUMN_LARGEST_KILLING_SPREE = "largest_killing_spree";
         public static final String COLUMN_GOLD_EARNED = "gold_earned";
         public static final String COLUMN_LARGEST_MULTI_KILL = "largest_multi_kill";
-        public static final String COLUMN_KLLING_SPREES = "killing_sprees";
+        public static final String COLUMN_KILLING_SPREES = "killing_sprees";
         public static final String COLUMN_ITEM_0 = "item_0";
         public static final String COLUMN_ITEM_1 = "item_1";
         public static final String COLUMN_ITEM_2 = "item_2";

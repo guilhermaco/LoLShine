@@ -48,7 +48,7 @@ public class GamesDbHelper extends SQLiteOpenHelper{
                 GameEntry.COLUMN_LARGEST_KILLING_SPREE + " INTEGER, " +
                 GameEntry.COLUMN_GOLD_EARNED + " INTEGER, " +
                 GameEntry.COLUMN_LARGEST_MULTI_KILL + " INTEGER, " +
-                GameEntry.COLUMN_KLLING_SPREES + " INTEGER, " +
+                GameEntry.COLUMN_KILLING_SPREES + " INTEGER, " +
                 GameEntry.COLUMN_ITEM_0 + " INTEGER, " +
                 GameEntry.COLUMN_ITEM_1 + " INTEGER, " +
                 GameEntry.COLUMN_ITEM_2 + " INTEGER, " +

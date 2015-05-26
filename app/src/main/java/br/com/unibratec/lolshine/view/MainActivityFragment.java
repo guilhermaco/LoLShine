@@ -78,7 +78,7 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Game game = mPlayerHistory.getGames().get(i);
-                game.setGameId(mSummoneId);
+                game.setSummonerId(mSummoneId);
                 if (getActivity() instanceof OnItemSelectedCallback) {
                     ((OnItemSelectedCallback) getActivity()).onItemSelected(game);
                 }
@@ -141,8 +141,6 @@ public class MainActivityFragment extends Fragment {
 
                 mPlayerHistory = gson.fromJson(json, PlayerHistory.class);
                 pGames = mPlayerHistory.getGames();
-
-                //insertGames(pGames, summonerId, params[0]);
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -223,7 +221,7 @@ public class MainActivityFragment extends Fragment {
                 gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_KILLING_SPREE, largestKillingSpree);
                 gameValues.put(GameContract.GameEntry.COLUMN_GOLD_EARNED, goldEarned);
                 gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_MULTI_KILL, largestMultKill);
-                gameValues.put(GameContract.GameEntry.COLUMN_KLLING_SPREES, killingSpree);
+                gameValues.put(GameContract.GameEntry.COLUMN_KILLING_SPREES, killingSpree);
                 gameValues.put(GameContract.GameEntry.COLUMN_WIN, win);
 
                 getActivity().getContentResolver().insert(

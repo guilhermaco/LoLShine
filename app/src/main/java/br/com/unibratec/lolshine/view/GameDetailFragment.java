@@ -20,7 +20,6 @@ import br.com.unibratec.lolshine.model.Game;
 public class GameDetailFragment extends Fragment {
 
     private Game mGame;
-    private MenuItem mMenuItem;
 
     public GameDetailFragment() {
     }
@@ -44,11 +43,11 @@ public class GameDetailFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_game_detail, menu);
 
-        mMenuItem = menu.findItem(R.id.action_favorite);
+        MenuItem menuItem = menu.findItem(R.id.action_favorite);
         if (isFavorite(mGame)){
-            mMenuItem.setIcon(R.drawable.ic_action_add_favorite);
+            menuItem.setIcon(R.drawable.ic_action_add_favorite);
         } else {
-            mMenuItem.setIcon(R.drawable.ic_action_remove_favorite);
+            menuItem.setIcon(R.drawable.ic_action_remove_favorite);
         }
     }
 
@@ -78,7 +77,18 @@ public class GameDetailFragment extends Fragment {
             int goldEarned = mGame.getStats().getGoldEarned();
             int largestMultKill = mGame.getStats().getLargestMultiKill();
             int killingSpree = mGame.getStats().getLargestKillingSpree();
-            String win = mGame.getStats().isWin() ? "Win" : "Lose";
+            int item0 = mGame.getStats().getItem0();
+            int item1 = mGame.getStats().getItem1();
+            int item2 = mGame.getStats().getItem2();
+            int item3 = mGame.getStats().getItem3();
+            int item4 = mGame.getStats().getItem4();
+            int item5 = mGame.getStats().getItem5();
+            int item6 = mGame.getStats().getItem6();
+            int doubleKills = mGame.getStats().getDoubleKills();
+            int tripleKills = mGame.getStats().getTripleKills();
+            int quadraKills = mGame.getStats().getQuadraKills();
+            int pentaKills = mGame.getStats().getPentaKills();
+            String win = mGame.getStats().isWin() ? "true" : "false";
             long gameId = mGame.getGameId();
             String gameMode = mGame.getGameMode();
             String gameType = mGame.getGameType();
@@ -98,7 +108,7 @@ public class GameDetailFragment extends Fragment {
             gameValues.put(GameContract.GameEntry.COLUMN_TIME_PLAYED, timePlayed);
             gameValues.put(GameContract.GameEntry.COLUMN_SPELL_1, spell_1);
             gameValues.put(GameContract.GameEntry.COLUMN_SPELL_2, spell_2);
-            //  playerValues.put(GameContract.PlayerEntry.COLUMN_SUMMONER_LEVEL, );
+            // gameValues.put(GameContract.GameEntry.COLUMN_SUMMONER_LEVEL, );
             gameValues.put(GameContract.GameEntry.COLUMN_LEVEL, level);
             gameValues.put(GameContract.GameEntry.COLUMN_CHAMPIONS_KILLED, championsKilled);
             gameValues.put(GameContract.GameEntry.COLUMN_NUM_DEATHS, numDeath);
@@ -116,10 +126,21 @@ public class GameDetailFragment extends Fragment {
             gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_KILLING_SPREE, largestKillingSpree);
             gameValues.put(GameContract.GameEntry.COLUMN_GOLD_EARNED, goldEarned);
             gameValues.put(GameContract.GameEntry.COLUMN_LARGEST_MULTI_KILL, largestMultKill);
-            gameValues.put(GameContract.GameEntry.COLUMN_KLLING_SPREES, killingSpree);
+            gameValues.put(GameContract.GameEntry.COLUMN_KILLING_SPREES, killingSpree);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_0, item0);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_1, item1);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_2, item2);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_3, item3);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_4, item4);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_5, item5);
+            gameValues.put(GameContract.GameEntry.COLUMN_ITEM_6, item6);
+            gameValues.put(GameContract.GameEntry.COLUMN_DOUBLE_KILLS, doubleKills);
+            gameValues.put(GameContract.GameEntry.COLUMN_TRIPLE_KILLS, tripleKills);
+            gameValues.put(GameContract.GameEntry.COLUMN_QUADRA_KILLS, quadraKills);
+            gameValues.put(GameContract.GameEntry.COLUMN_PENTA_KILLS, pentaKills);
             gameValues.put(GameContract.GameEntry.COLUMN_WIN, win);
 
-            if (isFavorite(mGame)) {
+            if (isFavorite(this.mGame)) {
                 getActivity().getContentResolver().delete(
                         GameContract.GameEntry.CONTENT_URI,
                         GameContract.GameEntry.COLUMN_GAME_ID +" = ?",
@@ -136,7 +157,6 @@ public class GameDetailFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
     private boolean isFavorite(Game game){
         Cursor cursor = getActivity().getContentResolver().query(
                 GameContract.GameEntry.CONTENT_URI,

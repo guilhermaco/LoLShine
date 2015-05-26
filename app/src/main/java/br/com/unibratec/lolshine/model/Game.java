@@ -1,6 +1,7 @@
 package br.com.unibratec.lolshine.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game implements Serializable{
@@ -22,6 +23,10 @@ public class Game implements Serializable{
     //         |
     private List<Player> fellowPlayers;
 
+    public Game(){
+        this.stats = new GameStats();
+        this.fellowPlayers = new ArrayList<>();
+    }
 
     public long getSummonerId() {
         return summonerId;
