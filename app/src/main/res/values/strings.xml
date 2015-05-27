@@ -18,4 +18,5 @@
     <string name="tab_games">Games</string>
     <string name="tab_favorites">Favorites</string>
     <string name="favorite">Favorite</string>
+    <string name="action_share">Share</string>
 </resources>

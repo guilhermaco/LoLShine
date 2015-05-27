@@ -1,10 +1,13 @@
 package br.com.unibratec.lolshine.view;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +19,9 @@ import android.widget.TextView;
 import br.com.unibratec.lolshine.R;
 import br.com.unibratec.lolshine.data.GameContract;
 import br.com.unibratec.lolshine.model.Game;
+import br.com.unibratec.lolshine.model.Utility;
 
 public class GameDetailFragment extends Fragment {
-
     private Game mGame;
 
     public GameDetailFragment() {
@@ -42,13 +45,41 @@ public class GameDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_game_detail, menu);
+        MenuItem menuItem;
 
-        MenuItem menuItem = menu.findItem(R.id.action_favorite);
+        menuItem = menu.findItem(R.id.action_favorite);
         if (isFavorite(mGame)){
             menuItem.setIcon(R.drawable.ic_action_add_favorite);
         } else {
             menuItem.setIcon(R.drawable.ic_action_remove_favorite);
         }
+
+        menuItem = menu.findItem(R.id.action_share);
+        ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        // Attach an intent to this ShareActionProvider.
+        if (shareActionProvider != null ) {
+            shareActionProvider.setShareIntent(createShareForecastIntent());
+        }
+    }
+
+    private Intent createShareForecastIntent() {
+        String shareString =
+                "CHAMPION: " + Utility.getChampionNameById(mGame.getChampionId()) + "\nSCORE: " +
+                mGame.getStats().getChampionsKilled()
+                + "/" +
+                mGame.getStats().getNumDeaths()
+                + "/" +
+                mGame.getStats().getAssists()
+                + "\nMODE: " +
+                mGame.getGameMode()
+                + "\n#LoLShine";
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                shareString);
+        return shareIntent;
     }
 
     @Override
@@ -157,6 +188,7 @@ public class GameDetailFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private boolean isFavorite(Game game){
         Cursor cursor = getActivity().getContentResolver().query(
                 GameContract.GameEntry.CONTENT_URI,
