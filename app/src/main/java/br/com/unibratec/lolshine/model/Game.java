@@ -6,21 +6,19 @@ import java.util.List;
 
 public class Game implements Serializable{
     private long gameId;
-    private long summonerId;
     private boolean invalid;
     private String gameMode;
     private String gameType;
     private String subType;
-    //          |
-    // PLAYER! \/
+    private long summonerId;
+    private String summonerName;
+    private int summonerLevel;
     private int teamId;
     private int championId;
     private int spell1;
     private int spell2;
     private int level;
     private GameStats stats;
-    // PLAYER! /\
-    //         |
     private List<Player> fellowPlayers;
 
     public Game(){
@@ -28,13 +26,6 @@ public class Game implements Serializable{
         this.fellowPlayers = new ArrayList<>();
     }
 
-    public long getSummonerId() {
-        return summonerId;
-    }
-
-    public void setSummonerId(long summonerId) {
-        this.summonerId = summonerId;
-    }
 
     public long getGameId() {
         return gameId;
@@ -74,6 +65,31 @@ public class Game implements Serializable{
 
     public void setSubType(String subType) {
         this.subType = subType;
+    }
+
+    public long getSummonerId() {
+        return summonerId;
+    }
+
+    public void setSummonerId(long summonerId) {
+        this.summonerId = summonerId;
+    }
+
+
+    public String getSummonerName() {
+        return summonerName;
+    }
+
+    public void setSummonerName(String summonerName) {
+        this.summonerName = summonerName;
+    }
+
+    public int getSummonerLevel() {
+        return summonerLevel;
+    }
+
+    public void setSummonerLevel(int summonerLevel) {
+        this.summonerLevel = summonerLevel;
     }
 
     public int getTeamId() {

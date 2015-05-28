@@ -21,8 +21,6 @@ import br.com.unibratec.lolshine.model.Utility;
 public class MainActivity extends ActionBarActivity implements OnItemSelectedCallback {
 
     private boolean isTablet;
-    private ViewPager mViewPager;
-    private SlidingTabLayout mSlidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +34,13 @@ public class MainActivity extends ActionBarActivity implements OnItemSelectedCal
             startActivity(new Intent(this, SettingsActivity.class));
         }
 
-        mViewPager = (ViewPager)findViewById(R.id.pager);
-        mViewPager.setAdapter(new GamesPageAdapter(
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(new GamesPageAdapter(
                 getSupportFragmentManager()));
 
-        mSlidingTabLayout = (SlidingTabLayout)findViewById(R.id.tabs);
-        mSlidingTabLayout.setDistributeEvenly(true);
-        mSlidingTabLayout.setViewPager(mViewPager);
+        SlidingTabLayout slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setViewPager(viewPager);
     }
 
 

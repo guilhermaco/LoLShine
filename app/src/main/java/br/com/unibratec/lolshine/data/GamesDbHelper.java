@@ -30,6 +30,7 @@ public class GamesDbHelper extends SQLiteOpenHelper{
                 GameEntry.COLUMN_SPELL_1 + " INTEGER, " +
                 GameEntry.COLUMN_SPELL_2 + " INTEGER, " +
                 GameEntry.COLUMN_SUMMONER_LEVEL + " INTEGER, " +
+                GameEntry.COLUMN_SUMMONER_NAME + " TEXT, " +
                 GameEntry.COLUMN_LEVEL + " INTEGER, " +
                 GameEntry.COLUMN_TIME_PLAYED + " INTEGER, " +
                 GameEntry.COLUMN_CHAMPIONS_KILLED + " INTEGER, " +

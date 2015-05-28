@@ -7,6 +7,9 @@ import android.preference.PreferenceManager;
 import br.com.unibratec.lolshine.R;
 
 public class Utility {
+    /**
+     * Helper method to provide the region in the settings
+     */
     public static String getRegionSetting(Context context){
         SharedPreferences preferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
@@ -14,13 +17,25 @@ public class Utility {
                 context.getString(R.string.pref_region_key),
                 context.getString(R.string.pref_region_default));
     }
-
+    /**
+     * Helper method to provide the summoner name in the settings
+     */
+    public static String getSummonerNameSetting(Context context){
+        SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(
+                context.getString(R.string.pref_summoner_name_key),
+                context.getString(R.string.pref_summoner_name_default));
+    }
+    /**
+     * Helper method to provide the champion name according to the champion id returned
+     */
     public static  boolean isTablet(Context context){
         return context.getResources().getBoolean(R.bool.isTablet);
     }
 
     /**
-     * Helper method to provide the icon resource id according to the champion id returned
+     * Helper method to provide the champion name according to the champion id returned
      */
     public static String getChampionNameById(int championId) {
         switch (championId) {
@@ -259,7 +274,7 @@ public class Utility {
             case 5:
                 return "XIN ZHAO";
             case 157:
-                return"YASUO";
+                return "YASUO";
             case 83:
                 return "YORICK";
             case 124:
@@ -273,7 +288,7 @@ public class Utility {
             case 143:
                 return "ZYRA";
             default:
-                return "UNKNOWN CHAMPIOM";
+                return "UNKNOWN CHAMPION";
         }
     }
 
@@ -407,7 +422,7 @@ public class Utility {
             case 21:
                 return R.drawable.ic_miss_fortune_21;
             case 82:
-                return R.drawable.ic_morderkaise_82;
+                return R.drawable.ic_morderkaiser_82;
             case 25:
                 return R.drawable.ic_morgana_25;
             case 267:
@@ -535,4 +550,40 @@ public class Utility {
         }
     }
 
+    /**
+     * Helper method to provide the icon resource id according to the summoner spell id returned
+     */
+    public static int getSummonerSpellIconResource(int summonerSpellId){
+        switch (summonerSpellId){
+            case 1:
+                return R.drawable.ic_cleanse;
+            case 12:
+            return R.drawable.ic_teleport;
+            case 14:
+            return R.drawable.ic_ignite;
+            case 6:
+            return R.drawable.ic_ghost;
+            case 31:
+            case 32:
+            return R.drawable.ic_mark;
+            case 7:
+            return R.drawable.ic_heal;
+            case 11:
+            return R.drawable.ic_smite;
+            case 3:
+            return R.drawable.ic_exhaust;
+            case 13:
+            return R.drawable.ic_clarity;
+            case 2:
+            return R.drawable.ic_clairvoyance;
+            case 4:
+            return R.drawable.ic_flash;
+            case 8:
+            return R.drawable.ic_garrison;
+            case 21:
+            return R.drawable.ic_barrier;
+            default:
+                return R.mipmap.ic_launcher;
+        }
+    }
 }

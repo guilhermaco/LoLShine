@@ -27,6 +27,7 @@ public class GameContract {
         public static final String COLUMN_SPELL_1 = "spell1";
         public static final String COLUMN_SPELL_2 = "spell2";
         public static final String COLUMN_SUMMONER_LEVEL = "summoner_level";
+        public static final String COLUMN_SUMMONER_NAME = "summoner_name";
         public static final String COLUMN_LEVEL = "level";
         public static final String COLUMN_CHAMPIONS_KILLED = "champions_killed";
         public static final String COLUMN_NUM_DEATHS = "num_deaths";

@@ -63,8 +63,8 @@ public class GameDetailFragment extends Fragment {
     }
 
     private Intent createShareForecastIntent() {
-        String shareString =
-                "CHAMPION: " + Utility.getChampionNameById(mGame.getChampionId()) + "\nSCORE: " +
+        String shareString = "CHAMPION: " + Utility.getChampionNameById(mGame.getChampionId())
+                + "\nSCORE: " +
                 mGame.getStats().getChampionsKilled()
                 + "/" +
                 mGame.getStats().getNumDeaths()
@@ -90,6 +90,8 @@ public class GameDetailFragment extends Fragment {
             int timePlayed = mGame.getStats().getTimePlayed();
             int spell_1 = mGame.getSpell1();
             int spell_2 = mGame.getSpell2();
+            int summonerLevel = mGame.getSummonerLevel();
+            String summonerName = mGame.getSummonerName();
             int level = mGame.getStats().getLevel();
             int championsKilled = mGame.getStats().getChampionsKilled();
             int numDeath = mGame.getStats().getNumDeaths();
@@ -139,7 +141,8 @@ public class GameDetailFragment extends Fragment {
             gameValues.put(GameContract.GameEntry.COLUMN_TIME_PLAYED, timePlayed);
             gameValues.put(GameContract.GameEntry.COLUMN_SPELL_1, spell_1);
             gameValues.put(GameContract.GameEntry.COLUMN_SPELL_2, spell_2);
-            // gameValues.put(GameContract.GameEntry.COLUMN_SUMMONER_LEVEL, );
+            gameValues.put(GameContract.GameEntry.COLUMN_SUMMONER_LEVEL, summonerLevel);
+            gameValues.put(GameContract.GameEntry.COLUMN_SUMMONER_NAME, summonerName);
             gameValues.put(GameContract.GameEntry.COLUMN_LEVEL, level);
             gameValues.put(GameContract.GameEntry.COLUMN_CHAMPIONS_KILLED, championsKilled);
             gameValues.put(GameContract.GameEntry.COLUMN_NUM_DEATHS, numDeath);
@@ -210,6 +213,7 @@ public class GameDetailFragment extends Fragment {
 
         mGame = (Game) getArguments().getSerializable("game");
 
+        TextView txtSummonerName = (TextView) view.findViewById(R.id.textView_summonerName);
         TextView txtTimePlayed = (TextView) view.findViewById(R.id.textView_timePlayed);
         TextView txtLevel = (TextView) view.findViewById(R.id.textView_level);
         TextView txtChampionsKilled = (TextView) view.findViewById(R.id.textView_championsKilled);
@@ -229,6 +233,7 @@ public class GameDetailFragment extends Fragment {
         TextView txtGoldEarned = (TextView) view.findViewById(R.id.textView_goldEarned);
         TextView txtLargestMultiKill = (TextView) view.findViewById(R.id.textView_largestMultiKill);
 
+        txtSummonerName.setText("Summoner Name: " + mGame.getSummonerName());
         txtTimePlayed.setText("Time Played: " + String.valueOf(mGame.getStats().getTimePlayed()));
         txtLevel.setText("Level: " + String.valueOf(mGame.getStats().getLevel()));
         txtChampionsKilled.setText("Kills: " + String.valueOf(mGame.getStats().getChampionsKilled()));

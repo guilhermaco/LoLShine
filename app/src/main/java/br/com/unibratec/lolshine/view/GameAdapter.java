@@ -28,6 +28,8 @@ public class GameAdapter extends ArrayAdapter<Game> {
         Game game = getItem(position);
 
         ImageView imgChampion = (ImageView)convertView.findViewById(R.id.imageView_champion);
+        ImageView imgSpell1 = (ImageView)convertView.findViewById(R.id.imageView_spell1);
+        ImageView imgSpell2 = (ImageView)convertView.findViewById(R.id.imageView_spell2);
         TextView txtQueueType = (TextView)convertView.findViewById(R.id.textView_queueType);
         TextView txtWinnner = (TextView)convertView.findViewById(R.id.textView_winner);
         TextView txtKills = (TextView)convertView.findViewById(R.id.textView_kills);
@@ -35,7 +37,13 @@ public class GameAdapter extends ArrayAdapter<Game> {
         TextView txtAssists = (TextView)convertView.findViewById(R.id.textView_assists);
 
         int championId = game.getChampionId();
+        int spell1 = game.getSpell1();
+        int spell2 = game.getSpell2();
+
         imgChampion.setImageResource(Utility.getChampionIconResource(championId));
+        imgSpell1.setImageResource(Utility.getSummonerSpellIconResource(spell1));
+        imgSpell2.setImageResource(Utility.getSummonerSpellIconResource(spell2));
+
         txtQueueType.setText(game.getGameMode());
         txtWinnner.setText(game.getStats().isWin() ? "WIN" : "LOSE");
         txtKills.setText(String.valueOf(game.getStats().getChampionsKilled()+"/"));

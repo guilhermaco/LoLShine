@@ -59,7 +59,7 @@ public class GameFavoriteFragment extends Fragment implements LoaderManager.Load
                 game.setSpell1(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SPELL_1)));
                 game.setSpell2(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SPELL_2)));
                 game.setLevel(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_LEVEL)));
-                game.setSummonerId(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SUMMONER_ID)));
+                game.setSummonerName(cursor.getString(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SUMMONER_NAME)));
                 game.getStats().setTimePlayed(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_TIME_PLAYED)));
                 game.getStats().setChampionsKilled(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_CHAMPIONS_KILLED)));
                 game.getStats().setNumDeaths(cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_NUM_DEATHS)));

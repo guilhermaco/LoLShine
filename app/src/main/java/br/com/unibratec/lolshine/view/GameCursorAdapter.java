@@ -27,6 +27,8 @@ public class GameCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ImageView imgChampion = (ImageView)view.findViewById(R.id.imageView_champion);
+        ImageView imgSpell1 = (ImageView)view.findViewById(R.id.imageView_spell1);
+        ImageView imgSpell2 = (ImageView)view.findViewById(R.id.imageView_spell2);
         TextView txtQueueType = (TextView)view.findViewById(R.id.textView_queueType);
         TextView txtWinnner = (TextView)view.findViewById(R.id.textView_winner);
         TextView txtKills = (TextView)view.findViewById(R.id.textView_kills);
@@ -34,7 +36,12 @@ public class GameCursorAdapter extends CursorAdapter {
         TextView txtAssists = (TextView)view.findViewById(R.id.textView_assists);
 
         int championId = cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_CHAMPION_ID));
+        int spell1 = cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SPELL_1));
+        int spell2 = cursor.getInt(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_SPELL_2));
+
         imgChampion.setImageResource(Utility.getChampionIconResource(championId));
+        imgSpell1.setImageResource(Utility.getSummonerSpellIconResource(spell1));
+        imgSpell2.setImageResource(Utility.getSummonerSpellIconResource(spell2));
         txtQueueType.setText(cursor.getString(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_GAME_MODE)));
 
         if(cursor.getString(cursor.getColumnIndex(GameContract.GameEntry.COLUMN_WIN)).equals("true")) {

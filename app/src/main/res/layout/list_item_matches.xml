@@ -7,8 +7,23 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView_champion"
-        android:src="@mipmap/ic_launcher"/>
+        android:id="@+id/imageView_champion"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_spell1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView_spell2" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,5 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView_assists" />
+
 
 </LinearLayout>
