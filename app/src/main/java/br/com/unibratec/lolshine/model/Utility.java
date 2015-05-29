@@ -81,6 +81,8 @@ public class Utility {
                 return "DR.MUNDO";
             case 119:
                 return "DRAVEN";
+            case 245:
+                return "EKKO";
             case 60:
                 return "ELISE";
             case 28:
@@ -339,6 +341,8 @@ public class Utility {
                 return R.drawable.ic_dr_mundo_36;
             case 119:
                 return R.drawable.ic_draven_119;
+            case 245:
+                return R.drawable.ic_ekko_245;
             case 60:
                 return R.drawable.ic_elise_60;
             case 28:
@@ -558,30 +562,32 @@ public class Utility {
             case 1:
                 return R.drawable.ic_cleanse;
             case 12:
-            return R.drawable.ic_teleport;
+                return R.drawable.ic_teleport;
             case 14:
-            return R.drawable.ic_ignite;
+                return R.drawable.ic_ignite;
             case 6:
-            return R.drawable.ic_ghost;
+                return R.drawable.ic_ghost;
+            case 30:
+                return R.drawable.ic_totheking;
             case 31:
             case 32:
-            return R.drawable.ic_mark;
+                return R.drawable.ic_mark;
             case 7:
-            return R.drawable.ic_heal;
+                return R.drawable.ic_heal;
             case 11:
-            return R.drawable.ic_smite;
+                return R.drawable.ic_smite;
             case 3:
-            return R.drawable.ic_exhaust;
+                return R.drawable.ic_exhaust;
             case 13:
-            return R.drawable.ic_clarity;
+                return R.drawable.ic_clarity;
             case 2:
-            return R.drawable.ic_clairvoyance;
+                return R.drawable.ic_clairvoyance;
             case 4:
-            return R.drawable.ic_flash;
+                return R.drawable.ic_flash;
             case 8:
-            return R.drawable.ic_garrison;
+                return R.drawable.ic_garrison;
             case 21:
-            return R.drawable.ic_barrier;
+                return R.drawable.ic_barrier;
             default:
                 return R.mipmap.ic_launcher;
         }

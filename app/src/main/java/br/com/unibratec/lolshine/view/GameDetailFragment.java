@@ -200,9 +200,9 @@ public class GameDetailFragment extends Fragment {
                 new String[]{String.valueOf(game.getGameId())},
                 null);
 
-        boolean existe = cursor.moveToNext();
+        boolean isFavorite = cursor.moveToNext();
         cursor.close();
-        return existe;
+        return isFavorite;
     }
 
     @Override

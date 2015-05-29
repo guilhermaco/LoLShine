@@ -3,10 +3,10 @@ package br.com.unibratec.lolshine.view;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
@@ -91,16 +92,19 @@ public class MainActivityFragment extends Fragment {
 
         // Reter a instancia para virar a tela sem perder as informacoes
         if (mPlayerHistory == null){
-            if (task == null){
-                task = new LoLShineTask();
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                String summonerName = sharedPreferences.getString(getString(R.string.pref_summoner_name_key),getString(R.string.pref_summoner_name_default));
-                if (summonerName != null && !summonerName.isEmpty()){
-                    task.execute(summonerName.replace(" ","").toLowerCase());
+            if(isOnline()){
+                if (task == null){
+                    task = new LoLShineTask();
+                    String summonerName = Utility.getSummonerNameSetting(getActivity());
+                    if (summonerName != null && !summonerName.isEmpty()){
+                        task.execute(summonerName.replace(" ","").toLowerCase());
+                    }
+                    searchPlayer();
+                } else if (task.getStatus() == AsyncTask.Status.FINISHED){
+                    fillGameList();
                 }
-                searchPlayer();
-            } else if (task.getStatus() == AsyncTask.Status.FINISHED){
-                fillGameList();
+            } else{
+                Toast.makeText(getActivity(),"NO INTERNET CONECTION", Toast.LENGTH_LONG).show();
             }
         } else {
             fillGameList();
@@ -162,6 +166,13 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    // Metodo que verifica se o usuario possui conexão com a internet
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 
     // Metodo que preenche a lista para ser utilizada sem perder o fragment
     private void fillGameList() {
@@ -181,9 +192,13 @@ public class MainActivityFragment extends Fragment {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
+                    if(isOnline()){
                     task = new LoLShineTask();
                     String summonerName = query.replace(" ", "").toLowerCase();
                     task.execute(summonerName);
+                    } else{
+                        Toast.makeText(getActivity(),"NO INTERNET CONECTION", Toast.LENGTH_LONG).show();
+                    }
                     return true;
                 }
                 @Override

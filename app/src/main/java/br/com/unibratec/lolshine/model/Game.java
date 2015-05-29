@@ -17,7 +17,6 @@ public class Game implements Serializable{
     private int championId;
     private int spell1;
     private int spell2;
-    private int level;
     private GameStats stats;
     private List<Player> fellowPlayers;
 
@@ -122,14 +121,6 @@ public class Game implements Serializable{
 
     public void setSpell2(int spell2) {
         this.spell2 = spell2;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public List<Player> getFellowPlayers() {
