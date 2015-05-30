@@ -3,8 +3,6 @@ package br.com.unibratec.lolshine.view;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +47,7 @@ public class MainActivityFragment extends Fragment {
     private int mSummonerLevel;
 
 
+
     public MainActivityFragment() {
     }
 
@@ -84,6 +83,13 @@ public class MainActivityFragment extends Fragment {
                 game.setSummonerId(mSummonerId);
                 game.setSummonerName(mSummonerName);
                 game.setSummonerLevel(mSummonerLevel);
+               /* GamePlayersDetailTask gamePlayersDetailTask = new GamePlayersDetailTask();
+                gamePlayersDetailTask.execute(game);
+                try {
+                    game.setPlayers(gamePlayersDetailTask.get());
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }*/
                 if (getActivity() instanceof OnItemSelectedCallback) {
                     ((OnItemSelectedCallback) getActivity()).onItemSelected(game);
                 }
@@ -92,7 +98,7 @@ public class MainActivityFragment extends Fragment {
 
         // Reter a instancia para virar a tela sem perder as informacoes
         if (mPlayerHistory == null){
-            if(isOnline()){
+            if(Utility.isOnline(getActivity())){
                 if (task == null){
                     task = new LoLShineTask();
                     String summonerName = Utility.getSummonerNameSetting(getActivity());
@@ -123,7 +129,7 @@ public class MainActivityFragment extends Fragment {
 
             try {
                 String region = Utility.getRegionSetting(getActivity());
-                // Pega o ID pelo nick
+                // Pega o summoner id pelo nick
                 url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.4/summoner/by-name/" +
                         params[0] +"?api_key=4508d11b-77d1-439b-8fad-48326122d306";
 
@@ -139,7 +145,7 @@ public class MainActivityFragment extends Fragment {
                 mSummonerName = summonerData.getString("name");
                 mSummonerLevel = summonerData.getInt("summonerLevel");
 
-                // Pega o historico de partidas pelo nick
+                // Pega o historico de partidas pelo summoner id
                 url = "https://" + region + ".api.pvp.net/api/lol/" + region + "/v1.3/game/by-summoner/" + String.valueOf(mSummonerId) +
                         "/recent?api_key=4508d11b-77d1-439b-8fad-48326122d306";
 
@@ -166,14 +172,6 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
-    // Metodo que verifica se o usuario possui conexão com a internet
-    public boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
-
     // Metodo que preenche a lista para ser utilizada sem perder o fragment
     private void fillGameList() {
         List<Game> games = new ArrayList<>();
@@ -192,7 +190,7 @@ public class MainActivityFragment extends Fragment {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    if(isOnline()){
+                    if(Utility.isOnline(getActivity())){
                     task = new LoLShineTask();
                     String summonerName = query.replace(" ", "").toLowerCase();
                     task.execute(summonerName);

@@ -1,5 +1,7 @@
 package br.com.unibratec.lolshine.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,12 @@ public class Game implements Serializable{
     private int spell1;
     private int spell2;
     private GameStats stats;
-    private List<Player> fellowPlayers;
+    @SerializedName("fellowPlayers")
+    private List<Player> players;
 
     public Game(){
         this.stats = new GameStats();
-        this.fellowPlayers = new ArrayList<>();
+        this.players = new ArrayList<>();
     }
 
 
@@ -123,12 +126,12 @@ public class Game implements Serializable{
         this.spell2 = spell2;
     }
 
-    public List<Player> getFellowPlayers() {
-        return fellowPlayers;
+    public List<Player> getPlayers() {
+        return players;
     }
 
-    public void setFellowPlayers(List<Player> fellowPlayers) {
-        this.fellowPlayers = fellowPlayers;
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 
     public GameStats getStats() {

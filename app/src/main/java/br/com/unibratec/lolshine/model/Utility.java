@@ -2,11 +2,23 @@ package br.com.unibratec.lolshine.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 import br.com.unibratec.lolshine.R;
 
 public class Utility {
+
+    /**
+     * Helper method to verify if user has network connectivity
+     */
+    public static boolean isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
     /**
      * Helper method to provide the region in the settings
      */

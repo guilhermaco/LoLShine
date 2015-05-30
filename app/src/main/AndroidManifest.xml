@@ -15,6 +15,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -45,6 +46,14 @@
         <activity
             android:name=".view.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.com.unibratec.lolshine.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".view.GamePlayersDetailActivity"
+            android:label="@string/title_activity_game_players_detail"
             android:parentActivityName=".view.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

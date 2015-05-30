@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity implements OnItemSelectedCal
                     .replace(R.id.container, GameDetailFragment.newInstance(game), "game_detail")
                     .commit();
         } else{
-            Intent it = new Intent(this, GameDetailActivity.class);
+            Intent it = new Intent(this, GamePlayersDetailActivity.class);
             it.putExtra("game", game);
             startActivity(it);
         }

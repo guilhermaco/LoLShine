@@ -19,4 +19,6 @@
     <string name="tab_favorites">Favorites</string>
     <string name="favorite">Favorite</string>
     <string name="action_share">Share</string>
+    <string name="title_activity_game_players_detail">GamePlayersDetailActivity</string>
+    <string name="hello_world">Hello world!</string>
 </resources>
